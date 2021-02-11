@@ -35,6 +35,20 @@ from typing import Any, Dict
 
 import pandas as pd
 
+def make_scatter_plot(df: pd.DataFrame):
+    import matplotlib.pyplot as plt
+    fg, ax = plt.subplots()
+    for i, spec in enumerate(list(df.species.unique())):
+        df[df['species'] == spec].plot.scatter(
+            x='petal_length',
+            y='petal_width',
+            label=spec,
+            color=f"C{i}",
+            ax=ax
+        )
+    fg.set_size_inches(12,12)
+    return fg
+
 
 def split_data(data: pd.DataFrame, example_test_data_ratio: float) -> Dict[str, Any]:
     """Node for splitting the classical Iris data set into training and test
